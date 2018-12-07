@@ -26,7 +26,8 @@
 
     <services>
         <!-- managers -->
-        <service id="assetic.filter_manager" class="%assetic.filter_manager.class%">
+		<defaults public="true" autowire="true" autoconfigure="true" />
+        <service id="assetic.filter_manager" class="%assetic.filter_manager.class%" public="true" >
             <argument type="service" id="service_container" />
             <argument type="collection"></argument>
         </service>
@@ -76,6 +77,7 @@
         <service id="assetic.value_supplier" alias="assetic.value_supplier.default" public="false" />
 
         <!-- Commands -->
+
         <prototype namespace="Symfony\Bundle\AsseticBundle\Command\" resource="../../Command/*" autowire="true" autoconfigure="true" public="false">
             <bind key="$assetManager" type="service" id="assetic.asset_manager" />
             <bind key="$eventDispatcher" type="service" id="event_dispatcher" />

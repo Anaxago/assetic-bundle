@@ -13,8 +13,8 @@ namespace Symfony\Bundle\AsseticBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\DefinitionDecorator;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
@@ -38,7 +38,7 @@ class AsseticExtension extends Extension
         $loader->load('assetic.xml');
         $loader->load('templating_twig.xml');
         $loader->load('templating_php.xml');
-
+/*
         $def = $container->getDefinition('assetic.parameter_bag');
         if (method_exists($def, 'setFactory')) {
             // to be inlined in assetic.xml when dependency on Symfony DependencyInjection is bumped to 2.6
@@ -48,7 +48,7 @@ class AsseticExtension extends Extension
             $def->setFactoryService('service_container');
             $def->setFactoryMethod('getParameterBag');
         }
-
+*/
         $processor = new Processor();
         $configuration = $this->getConfiguration($configs, $container);
         $config = $processor->processConfiguration($configuration, $configs);
@@ -100,7 +100,7 @@ class AsseticExtension extends Extension
                 }
 
                 foreach ($filter['apply_to'] as $i => $pattern) {
-                    $worker = new ChildDefinition('assetic.worker.ensure_filter');
+                    $worker = new DefinitionDecorator('assetic.worker.ensure_filter');
                     $worker->replaceArgument(0, '/'.$pattern.'/');
                     $worker->replaceArgument(1, new Reference('assetic.filter.'.$name));
                     $worker->addTag('assetic.factory_worker');

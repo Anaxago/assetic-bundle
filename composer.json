@@ -23,11 +23,11 @@
     "require-dev": {
         "patchwork/jsqueeze": "~1.0",
         "kriswallsmith/spork": "~0.3",
-        "symfony/twig-bundle": "~3.3|~4.0",
-        "symfony/class-loader": "~3.3|~4.0",
-        "symfony/dom-crawler": "~3.3|~4.0",
-        "symfony/css-selector": "~3.3|~4.0",
-        "symfony/phpunit-bridge": "~3.3|~4.0"
+        "symfony/twig-bundle": "~3.3|~4.0|~4.1|~4.2",
+        "symfony/class-loader": "~3.3|~4.0|~4.1|~4.2",
+        "symfony/dom-crawler": "~3.3|~4.0|~4.1|~4.2",
+        "symfony/css-selector": "~3.3|~4.0|~4.1|~4.2",
+        "symfony/phpunit-bridge": "~3.3|~4.0|~4.1|~4.2"
     },
     "conflict": {
         "twig/twig": "<1.27",

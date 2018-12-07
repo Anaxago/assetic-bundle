@@ -1,5 +1,5 @@
 {
-    "name": "cozynergy/assetic-bundle",
+    "name": "symfony/assetic-bundle",
     "description": "Integrates Assetic into Symfony2",
     "keywords": ["assets", "compression", "minification"],
     "homepage": "https://github.com/symfony/AsseticBundle",

@@ -46,10 +46,12 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $builder = new TreeBuilder('assetic');
+        $treeBuilder = new TreeBuilder('assetic');
+        $rootNode = \method_exists(TreeBuilder::class, 'getRootNode') ? $treeBuilder->getRootNode() : $treeBuilder->root('assetic');
+
         $finder = new ExecutableFinder();
 
-        $treeBuilder->getRootNode()
+		$rootNode
             ->children()
                 ->booleanNode('debug')->defaultValue('%kernel.debug%')->end()
                 ->arrayNode('use_controller')
@@ -81,7 +83,7 @@ class Configuration implements ConfigurationInterface
         $this->addWorkersSection($rootNode);
         $this->addTwigSection($rootNode);
 
-        return $builder;
+        return $treeBuilder;
     }
 
     private function addVariablesSection(ArrayNodeDefinition $rootNode)

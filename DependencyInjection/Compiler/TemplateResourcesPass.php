@@ -29,7 +29,8 @@ class TemplateResourcesPass implements CompilerPassInterface
             return;
         }
 
-        $engines = $container->getParameter('templating.engines');
+        //$engines = $container->getParameter('templating.engines');
+        $engines = ["twig"];
 
         // bundle and kernel resources
         $bundles = $container->getParameter('kernel.bundles');

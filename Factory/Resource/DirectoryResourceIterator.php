@@ -27,7 +27,7 @@ class DirectoryResourceIterator extends \RecursiveIteratorIterator
      * @param string            $path     The directory
      * @param RecursiveIterator $iterator The inner iterator
      */
-    public function __construct(LoaderInterface $loader, $bundle, $path, \RecursiveIterator $iterator)
+    public function __construct( $loader, $bundle, $path, \RecursiveIterator $iterator)
     {
         $this->loader = $loader;
         $this->bundle = $bundle;

@@ -12,7 +12,6 @@
 namespace Symfony\Bundle\AsseticBundle\Factory\Resource;
 
 use Assetic\Factory\Resource\ResourceInterface;
-use Symfony\Bundle\FrameworkBundle\Templating\TemplateReference;
 use Symfony\Component\Templating\Loader\LoaderInterface;
 
 /**
@@ -36,7 +35,7 @@ class FileResource implements ResourceInterface
      * @param string          $baseDir The directory
      * @param string          $path    The file path
      */
-    public function __construct(LoaderInterface $loader, $bundle, $baseDir, $path)
+    public function __construct($loader, $bundle, $baseDir, $path)
     {
         $this->loader = $loader;
         $this->bundle = $bundle;
@@ -46,19 +45,28 @@ class FileResource implements ResourceInterface
 
     public function isFresh($timestamp)
     {
-        return $this->loader->isFresh($this->getTemplate(), $timestamp);
+        return false;
+        //FIXME_HJA
+        //$this->loader->isFresh($this->getTemplate(), $timestamp);
     }
 
     public function getContent()
     {
         $templateReference = $this->getTemplate();
-        $fileResource = $this->loader->load($templateReference);
+        $tmpl = $templateReference;
+        $tmpl = str_replace("Bundle", "", $tmpl);
+        $tmpl = str_replace(":", "/", $tmpl);
+        if(!preg_match("/^@/", $tmpl)) {
+            $tmpl = "@" . $tmpl;
+        }
+        $fileResource = $this->loader->load($tmpl);
 
         if (!$fileResource) {
             throw new \InvalidArgumentException(sprintf('Unable to find template "%s".', $templateReference));
         }
 
-        return $fileResource->getContent();
+        $o = $fileResource->unwrap()->getSourceContext()->getCode();
+        return $o;
     }
 
     public function __toString()
@@ -69,7 +77,8 @@ class FileResource implements ResourceInterface
     protected function getTemplate()
     {
         if (null === $this->template) {
-            $this->template = self::createTemplateReference($this->bundle, substr($this->path, strlen($this->baseDir)));
+            //$this->template = self::createTemplateReference($this->bundle, substr($this->path, strlen($this->baseDir)));
+            $this->template = '@' .  $this->bundle . "/" . substr($this->path, strlen($this->baseDir));
         }
 
         return $this->template;

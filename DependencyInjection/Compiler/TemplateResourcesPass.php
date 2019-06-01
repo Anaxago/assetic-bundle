@@ -35,12 +35,15 @@ class TemplateResourcesPass implements CompilerPassInterface
         $asseticBundles = $container->getParameterBag()->resolveValue($container->getParameter('assetic.bundles'));
         foreach ($asseticBundles as $bundleName) {
             $rc = new \ReflectionClass($bundles[$bundleName]);
+            $this->setBundleDirectoryResources($container, "twig", dirname($rc->getFileName()), $bundleName);
         }
 
     }
 
     protected function setBundleDirectoryResources(ContainerBuilder $container, $engine, $bundleDirName, $bundleName)
     {
+        var_dump($engine);
+        var_dump($bundleName);
         $container->setDefinition(
             'assetic.'.$engine.'_directory_resource.'.$bundleName,
             new DirectoryResourceDefinition($bundleName, $engine, array(

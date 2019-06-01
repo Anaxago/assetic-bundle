@@ -33,9 +33,8 @@ class DirectoryResource extends BaseDirectoryResource
      * @param string          $path    The directory path
      * @param string          $pattern A regex pattern for file basenames
      */
-    public function __construct(LoaderInterface $loader, $bundle, $path, $pattern = null)
+    public function __construct($bundle, $path, $pattern = null)
     {
-        $this->loader = $loader;
         $this->bundle = $bundle;
         $this->path = rtrim($path, '/').'/';
 
@@ -45,7 +44,7 @@ class DirectoryResource extends BaseDirectoryResource
     public function getIterator()
     {
         return is_dir($this->path)
-            ? new DirectoryResourceIterator($this->loader, $this->bundle, $this->path, $this->getInnerIterator())
+            ? new DirectoryResourceIterator($this->bundle, $this->path, $this->getInnerIterator())
             : new \EmptyIterator();
     }
 }

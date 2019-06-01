@@ -52,6 +52,7 @@ class AsseticNodeVisitor extends \Twig_BaseNodeVisitor
 
         list($input, $filters, $options) = $formula;
         $line = $node->getLine();
+        dump($input);
 
         // check context and call either asset() or path()
         return new \Twig_Node_Expression_Conditional(

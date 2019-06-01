@@ -46,6 +46,7 @@ class AsseticExtension extends BaseAsseticExtension
     public function getNodeVisitors()
     {
         return array(
+            new AsseticNodeVisitor($this->templateNameParser, $this->enabledBundles),
         );
     }
 

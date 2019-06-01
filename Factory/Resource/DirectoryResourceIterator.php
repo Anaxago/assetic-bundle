@@ -27,9 +27,8 @@ class DirectoryResourceIterator extends \RecursiveIteratorIterator
      * @param string            $path     The directory
      * @param RecursiveIterator $iterator The inner iterator
      */
-    public function __construct(LoaderInterface $loader, $bundle, $path, \RecursiveIterator $iterator)
+    public function __construct($bundle, $path, \RecursiveIterator $iterator)
     {
-        $this->loader = $loader;
         $this->bundle = $bundle;
         $this->path = $path;
 
@@ -40,6 +39,6 @@ class DirectoryResourceIterator extends \RecursiveIteratorIterator
     {
         $file = parent::current();
 
-        return new FileResource($this->loader, $this->bundle, $this->path, $file->getPathname());
+        return new FileResource($this->bundle, $this->path, $file->getPathname());
     }
 }

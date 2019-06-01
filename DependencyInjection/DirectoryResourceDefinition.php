@@ -66,7 +66,6 @@ class DirectoryResourceDefinition extends Definition
     {
         $definition
             ->setClass('%assetic.directory_resource.class%')
-            ->addArgument(new Reference('templating.loader'))
             ->addArgument($bundle)
             ->addArgument($dir)
             ->addArgument('/\.[^.]+\.'.$engine.'$/')

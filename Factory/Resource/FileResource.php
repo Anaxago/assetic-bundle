@@ -12,8 +12,6 @@
 namespace Symfony\Bundle\AsseticBundle\Factory\Resource;
 
 use Assetic\Factory\Resource\ResourceInterface;
-use Symfony\Bundle\FrameworkBundle\Templating\TemplateReference;
-use Symfony\Component\Templating\Loader\LoaderInterface;
 
 /**
  * A file resource.
@@ -36,9 +34,8 @@ class FileResource implements ResourceInterface
      * @param string          $baseDir The directory
      * @param string          $path    The file path
      */
-    public function __construct(LoaderInterface $loader, $bundle, $baseDir, $path)
+    public function __construct($bundle, $baseDir, $path)
     {
-        $this->loader = $loader;
         $this->bundle = $bundle;
         $this->baseDir = $baseDir;
         $this->path = $path;
@@ -46,13 +43,15 @@ class FileResource implements ResourceInterface
 
     public function isFresh($timestamp)
     {
-        return $this->loader->isFresh($this->getTemplate(), $timestamp);
+        return false;
+        //return $this->loader->isFresh($this->getTemplate(), $timestamp);
     }
 
     public function getContent()
     {
         $templateReference = $this->getTemplate();
-        $fileResource = $this->loader->load($templateReference);
+        //$fileResource = $this->loader->load($templateReference);
+        $fileResource = false;
 
         if (!$fileResource) {
             throw new \InvalidArgumentException(sprintf('Unable to find template "%s".', $templateReference));
@@ -83,6 +82,7 @@ class FileResource implements ResourceInterface
         $format = array_pop($elements);
         $name = implode('.', $elements);
 
-        return new TemplateReference($bundle, implode('/', $parts), $name, $format, $engine);
+        dump(["NEW", $bundle, implode("/", $parts), $name, $format, $engine]);
+        //return new TemplateReference($bundle, implode('/', $parts), $name, $format, $engine);
     }
 }

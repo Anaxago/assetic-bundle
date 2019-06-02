@@ -13,6 +13,8 @@ namespace Symfony\Bundle\AsseticBundle\Factory\Resource;
 
 use Assetic\Factory\Resource\ResourceInterface;
 use Symfony\Component\Templating\Loader\LoaderInterface;
+use Symfony\Component\Config\Resource\FileResource as SFFileResource;
+
 
 /**
  * A file resource.
@@ -45,9 +47,10 @@ class FileResource implements ResourceInterface
 
     public function isFresh($timestamp)
     {
+        $r = new SFFileResource($this->path);
+        return $r->isFresh($timestamp);
         return false;
-        //FIXME_HJA
-        //$this->loader->isFresh($this->getTemplate(), $timestamp);
+        //return $fileResource->unwrap()->isFresh($timestamp);
     }
 
     public function getContent()

@@ -58,7 +58,7 @@ class AsseticNode extends BaseAsseticNode
             $nodes[] = new \Twig_Node_Expression_Array($vars, $this->getTemplateLine());
         }
 
-        return new \Twig_Node_Expression_Function(
+        return new \Twig\Node\Expression\FunctionExpression(
             'path',
             new \Twig_Node($nodes),
             $this->getTemplateLine()
@@ -73,7 +73,7 @@ class AsseticNode extends BaseAsseticNode
             $arguments[] = new \Twig_Node_Expression_Constant($this->getAttribute('package'), $this->getTemplateLine());
         }
 
-        return new \Twig_Node_Expression_Function(
+        return new \Twig\Node\Expression\FunctionExpression(
             'asset',
             new \Twig_Node($arguments),
             $this->getTemplateLine()

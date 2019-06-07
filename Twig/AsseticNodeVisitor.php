@@ -62,14 +62,14 @@ class AsseticNodeVisitor extends \Twig_BaseNodeVisitor
                 \Twig_Template::ARRAY_CALL,
                 $line
             ),
-            new \Twig_Node_Expression_Function(
+            new \Twig\Node\Expression\FunctionExpression(
                 'path',
                 new \Twig_Node(array(
                     new \Twig_Node_Expression_Constant('_assetic_'.$options['name'], $line),
                 )),
                 $line
             ),
-            new \Twig_Node_Expression_Function(
+            new \Twig\Node\Expression\FunctionExpression(
                 'asset',
                 new \Twig_Node(array($node, new \Twig_Node_Expression_Constant(isset($options['package']) ? $options['package'] : null, $line))),
                 $line
@@ -85,7 +85,7 @@ class AsseticNodeVisitor extends \Twig_BaseNodeVisitor
      */
     private function checkNode(\Twig_Node $node, \Twig_Environment $env, &$name = null)
     {
-        if ($node instanceof \Twig_Node_Expression_Function) {
+        if ($node instanceof \Twig\Node\Expression\FunctionExpression) {
             $name = $node->getAttribute('name');
             if ($env->getFunction($name) instanceof AsseticFilterFunction) {
                 $arguments = array();

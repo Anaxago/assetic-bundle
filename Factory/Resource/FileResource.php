@@ -62,13 +62,15 @@ class FileResource implements ResourceInterface
         if(!preg_match("/^@/", $tmpl)) {
             $tmpl = "@" . $tmpl;
         }
+
         $fileResource = $this->loader->load($tmpl);
+
 
         if (!$fileResource) {
             throw new \InvalidArgumentException(sprintf('Unable to find template "%s".', $templateReference));
         }
 
-        $o = $fileResource->unwrap()->getSourceContext()->getCode();
+        return file_get_contents($fileResource->unwrap()->getSourceContext()->getPath());
         return $o;
     }
 

@@ -52,7 +52,7 @@ class TemplateResourcesPass implements CompilerPassInterface
         $container->setDefinition(
             'assetic.'.$engine.'_directory_resource.'.$bundleName,
             new DirectoryResourceDefinition($bundleName, $engine, array(
-                $container->getParameter('kernel.root_dir').'/Resources/'.$bundleName.'/views',
+                $container->getParameter('kernel.project_dir').'/Resources/'.$bundleName.'/views',
                 $bundleDirName.'/Resources/views',
             ))
         );
@@ -62,7 +62,7 @@ class TemplateResourcesPass implements CompilerPassInterface
     {
         $container->setDefinition(
             'assetic.'.$engine.'_directory_resource.kernel',
-            new DirectoryResourceDefinition('', $engine, array($container->getParameter('kernel.root_dir').'/Resources/views'))
+            new DirectoryResourceDefinition('', $engine, array($container->getParameter('kernel.project_dir').'/Resources/views'))
         );
     }
 }

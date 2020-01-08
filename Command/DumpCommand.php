@@ -114,5 +114,7 @@ class DumpCommand extends AbstractCommand
                 $this->dumpAsset($name, $stdout);
             }
         }
+        return 0;
     }
+
 }

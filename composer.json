@@ -18,7 +18,7 @@
         "symfony/dependency-injection": "~3.3|~4.0|~4.1|~4.2|~4.3|~4.4",
         "symfony/console": "~3.3|~4.0|~4.1|~4.2|~4.3|~4.4",
         "symfony/yaml": "~3.3|~4.0|~4.1|~4.2|~4.3|~4.4",
-        "kriswallsmith/assetic": "dev-kmm"
+        "anaxago/assetic/assetic": "dev-master"
     },
     "require-dev": {
         "patchwork/jsqueeze": "~1.0",

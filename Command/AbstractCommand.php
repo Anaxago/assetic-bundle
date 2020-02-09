@@ -13,21 +13,33 @@ namespace Symfony\Bundle\AsseticBundle\Command;
 
 use Assetic\Asset\AssetCollectionInterface;
 use Assetic\Asset\AssetInterface;
+use Assetic\AssetManager;
 use Assetic\Util\VarUtils;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
-abstract class AbstractCommand extends ContainerAwareCommand
+abstract class AbstractCommand extends Command
 {
     protected $am;
     protected $basePath;
+    protected $debug;
+    protected $ed;
+    protected $variables = [];
+
+    public function __construct(AssetManager $assetManager, EventDispatcherInterface $eventDispatcher, string $asseticWriteTo, array $asseticVariables, bool $debug)
+    {
+        $this->am = $assetManager;
+        $this->ed = $eventDispatcher;
+        $this->basePath = $asseticWriteTo;
+        $this->debug = $debug;
+        $this->variables = $asseticVariables;
+        parent::__construct();
+    }
 
     protected function initialize(InputInterface $input, OutputInterface $stdout)
     {
-        $this->am = $this->getContainer()->get('assetic.asset_manager');
-
-        $this->basePath = $this->getContainer()->getParameter('assetic.write_to');
         if ($input->hasArgument('write_to') && $basePath = $input->getArgument('write_to')) {
             $this->basePath = $basePath;
         }
@@ -71,10 +83,7 @@ abstract class AbstractCommand extends ContainerAwareCommand
      */
     private function doDump(AssetInterface $asset, OutputInterface $stdout)
     {
-        $combinations = VarUtils::getCombinations(
-            $asset->getVars(),
-            $this->getContainer()->getParameter('assetic.variables')
-        );
+        $combinations = VarUtils::getCombinations($asset->getVars(), $this->variables);
 
         foreach ($combinations as $combination) {
             $asset->setValues($combination);

@@ -99,10 +99,7 @@ class WatchCommand extends AbstractCommand
         $formula = $this->am->hasFormula($name) ? serialize($this->am->getFormula($name)) : null;
         $asset = $this->am->get($name);
 
-        $combinations = VarUtils::getCombinations(
-            $asset->getVars(),
-            $this->getContainer()->getParameter('assetic.variables')
-        );
+        $combinations = VarUtils::getCombinations($asset->getVars(), $this->variables);
 
         $mtime = 0;
         foreach ($combinations as $combination) {

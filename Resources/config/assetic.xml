@@ -26,11 +26,12 @@
 
     <services>
         <!-- managers -->
-        <service id="assetic.filter_manager" class="%assetic.filter_manager.class%">
+		<defaults public="true" autowire="true" autoconfigure="true" />
+        <service id="assetic.filter_manager" class="%assetic.filter_manager.class%" public="true" >
             <argument type="service" id="service_container" />
             <argument type="collection"></argument>
         </service>
-        <service id="assetic.asset_manager" class="%assetic.asset_manager.class%">
+        <service id="assetic.asset_manager" class="%assetic.asset_manager.class%" public="true">
             <argument type="service" id="assetic.asset_factory" />
             <argument type="collection"></argument>
         </service>
@@ -74,5 +75,15 @@
         </service>
 
         <service id="assetic.value_supplier" alias="assetic.value_supplier.default" public="false" />
+
+        <!-- Commands -->
+
+        <prototype namespace="Symfony\Bundle\AsseticBundle\Command\" resource="../../Command/*" autowire="true" autoconfigure="true" public="false">
+            <bind key="$assetManager" type="service" id="assetic.asset_manager" />
+            <bind key="$eventDispatcher" type="service" id="event_dispatcher" />
+            <bind key="$asseticWriteTo">%assetic.write_to%</bind>
+            <bind key="$asseticVariables">%assetic.variables%</bind>
+            <bind key="$debug">%kernel.debug%</bind>
+        </prototype>
     </services>
 </container>

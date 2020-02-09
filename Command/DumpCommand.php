@@ -54,11 +54,7 @@ class DumpCommand extends AbstractCommand
                 throw new \InvalidArgumentException('The --forks options must be numeric');
             }
 
-            $this->spork = new ProcessManager(
-                new WrappedEventDispatcher($this->getContainer()->get('event_dispatcher')),
-                null,
-                $this->getContainer()->getParameter('kernel.debug')
-            );
+            $this->spork = new ProcessManager(new WrappedEventDispatcher($this->ed), null, $this->debug);
         }
 
         parent::initialize($input, $stdout);

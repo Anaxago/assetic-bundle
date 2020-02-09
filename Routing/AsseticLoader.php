@@ -106,7 +106,7 @@ class AsseticLoader extends Loader
     private function loadRouteForAsset(RouteCollection $routes, AssetInterface $asset, $name, $pos = null)
     {
         $defaults = array(
-            '_controller' => 'assetic.controller:render',
+            '_controller' => 'assetic.controller::render',
             'name'        => $name,
             'pos'         => $pos,
         );

@@ -2,7 +2,7 @@ AsseticBundle
 =============
 
 The `AsseticBundle` provides integration of the [Assetic](https://github.com/kriswallsmith/assetic)
-library into the Symfony framework (up to Symfony 3.4).
+library into the Symfony framework (up to Symfony 4.4, forked from https://github.com/KroneMultimedia/assetic-bundle).
 
 **CAUTION**: As of Symfony 4.0, Symfony applications should use [Webpack Encore](https://symfony.com/doc/current/frontend.html).
 
